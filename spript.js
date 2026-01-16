@@ -44,9 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const whatsapp = formAgendamento.querySelector('input[placeholder="WhatsApp"]').value;
         const servico = formAgendamento.querySelector('select').value;
         const data = formAgendamento.querySelector('input[type="date"]').value;
+        const hora = formAgendamento.querySelector('input[type="time"]').value;
         const mensagem = formAgendamento.querySelector('textarea').value;
 
-        // Salvar no banco de dados e adicionar ao calendário
+        // Validar hora
+        if (!hora) {
+            alert('❌ Por favor, selecione um horário');
+            return;
+        }
+
+        // Salvar no banco de dados
         fetch('/api/agendamentos', {
             method: 'POST',
             headers: {
@@ -57,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 whatsapp,
                 servico,
                 data,
+                hora,
                 mensagem
             })
         })

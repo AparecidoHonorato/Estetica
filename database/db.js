@@ -23,6 +23,7 @@ function inicializarBanco() {
             whatsapp TEXT NOT NULL,
             servico TEXT NOT NULL,
             data TEXT NOT NULL,
+            hora TEXT NOT NULL,
             mensagem TEXT,
             data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
         )
