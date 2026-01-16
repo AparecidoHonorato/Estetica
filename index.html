@@ -97,5 +97,30 @@
         <p>&copy; 2026 Lumena Estética. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- MODAL DE AGENDAMENTO -->
+    <div id="modalAgendamento" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agende sua Sessão</h2>
+            <form id="formAgendamento">
+                <input type="text" placeholder="Seu Nome" required>
+                <input type="text" placeholder="WhatsApp" required>
+                <select required>
+                    <option value="">Selecione o Serviço</option>
+                    <option value="facial">Facial</option>
+                    <option value="corporal">Corporal</option>
+                    <option value="unhas">Unhas</option>
+                </select>
+                <input type="date" required>
+                <textarea placeholder="Mensagem adicional" rows="4"></textarea>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-submit">Confirmar Agendamento</button>
+                    <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="spript.js"></script>
 </body>
 </html>
