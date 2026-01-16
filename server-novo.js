@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
+const { google } = require('googleapis');
+const fs = require('fs');
 
 const app = express();
 
@@ -33,25 +35,73 @@ const db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
-// Função para gerar URL do Google Calendar
-function generateGoogleCalendarUrl(nome, servico, data, hora, whatsapp, mensagem) {
+// Configurar Google Calendar
+let calendar = null;
+try {
+    const credentialsPath = path.join(__dirname, 'credentials.json');
+    if (fs.existsSync(credentialsPath)) {
+        const credentials = JSON.parse(fs.readFileSync(credentialsPath));
+        const auth = new google.auth.GoogleAuth({
+            keyFile: credentialsPath,
+            scopes: ['https://www.googleapis.com/auth/calendar']
+        });
+        calendar = google.calendar({ version: 'v3', auth });
+        console.log('✓ Google Calendar API configurado');
+    } else {
+        console.log('⚠️ Arquivo credentials.json não encontrado. Usando fallback.');
+    }
+} catch (erro) {
+    console.log('⚠️ Erro ao configurar Google Calendar:', erro.message);
+}
+
+// Função para adicionar evento ao Google Calendar automaticamente
+async function adicionarAoCalendarioAutomatico(nome, servico, data, hora, whatsapp, mensagem) {
+    if (!calendar) {
+        console.log('Google Calendar não configurado. Usando fallback.');
+        return null;
+    }
+
     try {
         // Combinar data e hora
         const [ano, mes, dia] = data.split('-');
+        const dataObj = new Date(ano, mes - 1, dia);
+        
+        // Parse hora
         const [horas, minutos] = hora.split(':');
+        const startTime = new Date(dataObj);
+        startTime.setHours(parseInt(horas), parseInt(minutos));
         
-        const dataObj = new Date(ano, mes - 1, dia, horas, minutos);
-        const startTime = dataObj.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-        const endTime = new Date(dataObj.getTime() + 3600000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-        
-        const titulo = `Agendamento: ${nome} - ${servico}`;
-        const descricao = `Nome: ${nome}%0AWhatsApp: ${whatsapp}%0AServiço: ${servico}%0AHorário: ${hora}%0AMensagem: ${mensagem || 'Sem mensagem'}`;
-        
-        const url = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(titulo)}&dates=${startTime}/${endTime}&details=${descricao}&location=Lumena%20Estética`;
-        
-        return url;
+        const endTime = new Date(startTime);
+        endTime.setHours(endTime.getHours() + 1);
+
+        const evento = {
+            summary: `Agendamento: ${nome} - ${servico}`,
+            description: `Nome: ${nome}\nWhatsApp: ${whatsapp}\nServiço: ${servico}\nMensagem: ${mensagem || 'Sem mensagem adicional'}`,
+            start: {
+                dateTime: startTime.toISOString(),
+                timeZone: 'America/Sao_Paulo'
+            },
+            end: {
+                dateTime: endTime.toISOString(),
+                timeZone: 'America/Sao_Paulo'
+            },
+            attendees: [
+                { email: 'Honoratobianca2@gmail.com' }
+            ],
+            reminders: {
+                useDefault: true
+            }
+        };
+
+        const result = await calendar.events.insert({
+            calendarId: 'primary',
+            resource: evento
+        });
+
+        console.log('✓ Evento adicionado ao Google Calendar:', result.data.id);
+        return result.data;
     } catch (erro) {
-        console.error('Erro ao gerar URL do calendário:', erro);
+        console.error('Erro ao adicionar evento:', erro.message);
         return null;
     }
 }
@@ -62,7 +112,7 @@ app.get('/', (req, res) => {
 });
 
 // Rota POST para salvar agendamento
-app.post('/api/agendamentos', (req, res) => {
+app.post('/api/agendamentos', async (req, res) => {
     try {
         const { nome, whatsapp, servico, data, hora, mensagem } = req.body;
 
@@ -79,7 +129,7 @@ app.post('/api/agendamentos', (req, res) => {
         // Inserir no banco de dados
         const sql = `INSERT INTO agendamentos (nome, whatsapp, servico, data, hora, mensagem) VALUES (?, ?, ?, ?, ?, ?)`;
         
-        db.run(sql, [nome, whatsapp, servico, data, hora, mensagem || ''], function(err) {
+        db.run(sql, [nome, whatsapp, servico, data, hora, mensagem || ''], async function(err) {
             if (err) {
                 console.error('Erro ao salvar:', err);
                 return res.status(500).json({ 
@@ -88,17 +138,25 @@ app.post('/api/agendamentos', (req, res) => {
                 });
             }
 
-            // Gerar URL do Google Calendar
-            const calendarUrl = generateGoogleCalendarUrl(nome, servico, data, hora, whatsapp, mensagem);
-
             console.log('Agendamento salvo com ID:', this.lastID);
 
-            res.json({ 
-                sucesso: true, 
-                mensagem: 'Agendamento salvo com sucesso!',
-                id: this.lastID,
-                calendarUrl: calendarUrl
-            });
+            // Tentar adicionar ao Google Calendar automaticamente
+            const eventoAdicionado = await adicionarAoCalendarioAutomatico(nome, servico, data, hora, whatsapp, mensagem);
+
+            if (eventoAdicionado) {
+                res.json({ 
+                    sucesso: true, 
+                    mensagem: '✓ Agendamento salvo e adicionado ao calendário automaticamente!',
+                    id: this.lastID,
+                    eventoId: eventoAdicionado.id
+                });
+            } else {
+                res.json({ 
+                    sucesso: true, 
+                    mensagem: '✓ Agendamento salvo! (Calendário em modo manual)',
+                    id: this.lastID
+                });
+            }
         });
     } catch (erro) {
         console.error('Erro na rota POST:', erro);
@@ -126,3 +184,4 @@ app.listen(PORT, () => {
     console.log(`✓ Servidor rodando em http://localhost:${PORT}`);
     console.log(`✓ Abra http://localhost:${PORT} no navegador`);
 });
+

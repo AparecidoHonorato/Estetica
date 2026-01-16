@@ -71,16 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(resultado => {
             if (resultado.sucesso) {
-                // Abrir Google Calendar para confirmação
-                if (resultado.calendarUrl) {
-                    window.open(resultado.calendarUrl, '_blank');
-                }
-
                 // Limpar formulário e fechar modal
                 formAgendamento.reset();
                 modal.style.display = 'none';
                 
-                alert('✓ Agendamento salvo e adicionado ao calendário (aparecidogomes1003@gmail.com)!');
+                alert('✓ ' + resultado.mensagem);
             } else {
                 alert('❌ Erro ao salvar agendamento: ' + resultado.mensagem);
             }

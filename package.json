@@ -2,15 +2,19 @@
   "name": "site-estetica",
   "version": "1.0.0",
   "description": "Site de estética simples",
-  "main": "app.js",
+  "main": "server-novo.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server-novo.js"
   },
-  "keywords": ["estetica", "site"],
+  "keywords": [
+    "estetica",
+    "site"
+  ],
   "author": "Junior Gomes",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "googleapis": "^118.0.0",
     "sqlite3": "^5.1.6"
   }
 }
