@@ -1,0 +1,212 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: #fff;
+    scroll-behavior: smooth;
+    background-color: #111; /* fundo escuro */
+    overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: #000; /* preto */
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid #d4af37; /* linha dourada */
+}
+
+header .container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* LOGO + TEXTO NA MESMA LINHA */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    width: 60px;
+    height: auto;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    color: #d4af37;
+}
+
+/* MENU DROPDOWN */
+header nav .menu,
+header nav .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header nav .menu {
+    display: flex;
+}
+
+header nav .menu > li {
+    position: relative;
+    margin-left: 20px;
+}
+
+header nav .menu > li > a {
+    color: #d4af37;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 0;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+header nav .menu li .dropdown {
+    display: none;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    background: #222;
+    padding: 10px 0;
+    border-radius: 5px;
+    min-width: 150px;
+    z-index: 100;
+    border: 1px solid #d4af37;
+}
+
+header nav .menu li:hover .dropdown {
+    display: block;
+}
+
+header nav .menu li .dropdown li a {
+    display: block;
+    padding: 8px 15px;
+    color: #d4af37;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+header nav .menu li .dropdown li a:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+/* ===== HERO / BANNER ===== */
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #d4af37;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero .btn {
+    display: inline-block;
+    background: #d4af37;
+    color: #000;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.hero .btn:hover {
+    transform: scale(1.05);
+}
+
+/* ===== SESSÃO DE SERVIÇOS ===== */
+#servicos {
+    text-align: center;
+}
+
+#servicos .cards {
+    display: flex;
+    justify-content: center; /* centraliza os cards */
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: rgba(0,0,0,0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    border: 1px solid #d4af37;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(212,175,55,0.5);
+}
+
+.card-img {
+    width: 60px;
+    margin-bottom: 15px;
+}
+
+/* ===== SEÇÃO SOBRE ===== */
+#sobre {
+    text-align: center;
+    margin: 50px 0;
+}
+
+#sobre p {
+    max-width: 600px;
+    margin: 20px auto;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #000;
+    color: #d4af37;
+    text-align: center;
+    padding: 30px 0;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer a {
+    display: block;
+    color: #d4af37;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+footer a:hover {
+    color: #fff;
+}
