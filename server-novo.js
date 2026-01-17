@@ -86,7 +86,7 @@ async function adicionarAoCalendarioAutomatico(nome, servico, data, hora, whatsa
                 timeZone: 'America/Sao_Paulo'
             },
             attendees: [
-                { email: 'Honoratobianca2@gmail.com' }
+                { email: 'aparecidogomes1003@gmail.com' }
             ],
             reminders: {
                 useDefault: true
