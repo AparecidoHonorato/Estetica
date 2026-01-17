@@ -8,20 +8,21 @@
 
 body {
     line-height: 1.6;
-    color: #fff;
+    color: #333;
     scroll-behavior: smooth;
-    background-color: #111; /* fundo escuro */
+    background-color: #fff; /* fundo branco */
     overflow-x: hidden;
 }
 
 /* ===== HEADER ===== */
 header {
-    background: #000; /* preto */
-    padding: 20px 0;
+    background: #fff;
+    padding: 12px 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 2px solid #d4af37; /* linha dourada */
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 header .container {
@@ -59,6 +60,11 @@ header nav .menu ul {
 
 header nav .menu {
     display: flex;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 15px;
+    border-radius: 30px;
+    border: 2px solid #d4af37;
+    gap: 8px;
 }
 
 header nav .menu > li {
@@ -67,42 +73,154 @@ header nav .menu > li {
 }
 
 header nav .menu > li > a {
-    color: #d4af37;
+    color: #333;
     text-decoration: none;
-    font-weight: bold;
-    padding: 5px 0;
+    font-weight: 500;
+    padding: 8px 18px;
     display: inline-block;
-    transition: color 0.3s;
+    transition: all 0.25s ease;
+    position: relative;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    border: 1px solid #d4af37;
+}
+
+header nav .menu > li > a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d4af37;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(1.05);
+}
+
+header nav .menu > li > a:hover {
+    color: #fff;
+    background: #d4af37;
+    transform: rotate(2deg);
+}
+
+header nav .menu > li > a:hover::before {
+    opacity: 0.3;
+    transform: scale(1.1) rotate(-2deg);
 }
 
 header nav .menu li .dropdown {
     display: none;
     position: absolute;
-    top: 35px;
+    top: 50px;
     left: 0;
-    background: #222;
-    padding: 10px 0;
-    border-radius: 5px;
-    min-width: 150px;
+    background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+    padding: 15px 0;
+    border-radius: 10px;
+    min-width: 180px;
     z-index: 100;
-    border: 1px solid #d4af37;
+    border: 2px solid #d4af37;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 }
 
-header nav .menu li:hover .dropdown {
-    display: block;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }12px 20px;
+    color: #d4af37;
+    text-45px;
+    left: 0;
+    background: #fff;
+    padding: 12px 0;
+    border-radius: 10px;
+    min-width: 160px;
+    z-index: 100;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.25s ease
+    padding-left: 25pxock;
 }
 
 header nav .menu li .dropdown li a {
     display: block;
-    padding: 8px 15px;
-    color: #d4af37;
+    padding: 10px 20px;
+    color: #333;
     text-decoration: none;
-    transition: background 0.3s, color 0.3s;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+header nav .menu li .dropdown li a:hover {
+    color: #d4af37;
+    background: rgba(212, 175, 55, 0.08);
+    padding-left: 24px;
+    transform: translateX(4px);
 }
 
 header nav .menu li .dropdown li a:hover {
     background: #d4af37;
     color: #000;
+}
+
+/* Manter cor clara no dark mode ao passar mouse */
+body.dark-mode header nav .menu li .dropdown li a:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+/* ===== DARK MODE BUTTON ===== */
+.dark-mode-btn {
+    background: transparent;
+    color: #d4af37;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    box-shadow: none;
+    position: relative;
+}
+
+.dark-mode-btn::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #d4af37;
+    border-radius: 50%;
+    transition: all 0.25s ease;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.dark-mode-btn:hover {
+    transform: rotate(20deg);
+    color: #fff;
+}
+
+.dark-mode-btn:hover::before {
+    border-color: #fff;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.dark-mode-btn:active {
+    transform: rotate(20deg) scale(0.95);
 }
 
 /* ===== HERO / BANNER ===== */
@@ -150,7 +268,7 @@ header nav .menu li .dropdown li a:hover {
 }
 
 .card {
-    background: rgba(0,0,0,0.7);
+    background: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     width: 250px;
@@ -179,15 +297,16 @@ header nav .menu li .dropdown li a:hover {
     max-width: 600px;
     margin: 20px auto;
     font-size: 1.1rem;
-    color: #fff;
+    color: #333;
 }
 
 /* ===== FOOTER ===== */
 footer {
-    background: #000;
+    background: #f9f9f9;
     color: #d4af37;
     text-align: center;
     padding: 30px 0;
+    border-top: 2px solid #d4af37;
 }
 
 footer .container {
@@ -233,7 +352,7 @@ footer a:hover {
 }
 
 .modal-content {
-    background: linear-gradient(135deg, #222 0%, #111 100%);
+    background: linear-gradient(135deg, #f9f9f9 0%, #fff 100%);
     margin: 5% auto;
     padding: 30px;
     border: 2px solid #d4af37;
@@ -287,8 +406,8 @@ footer a:hover {
     padding: 12px;
     border: 1px solid #d4af37;
     border-radius: 5px;
-    background: #1a1a1a;
-    color: #fff;
+    background: #fff;
+    color: #333;
     font-size: 14px;
     transition: border 0.3s, box-shadow 0.3s;
 }
@@ -321,11 +440,104 @@ footer a:hover {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    font-size: 16px;
-    flex: 1;
+body.dark-mode header {
+    background: #1a1a1a;
+    border-bottom-color: #333;
 }
 
-.btn-submit:hover {
+body.dark-mode header nav .menu {
+    background: rgba(26, 26, 26, 0.95);
+    border-color: #d4af37;
+}
+
+body.dark-mode header nav .menu > li > a {
+    color: #d4af37;
+    border-color: #d4af37;
+}
+
+body.dark-mode header nav .menu > li > a::before {
+    border-color: #d4af37;
+}
+
+body.dark-mode header nav .menu > li > a:hover {
+    color: #000;
+    background: #d4af37;
+    transform: rotate(2deg);
+}
+
+body.dark-mode header nav .menu > li > a:hover::before {
+    opacity: 0.3;
+    transform: scale(1.1) rotate(-2deg);
+}
+    transform: rotate(2deg);
+    color: #000;
+    background: #d4af37;
+}
+
+body.dark-mode header nav .menu li .dropdown {
+    background: #222;
+    border-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode header nav .menu li .dropdown li a {
+    color: #d4af37;
+}
+
+body.dark-mode header nav .menu li .dropdown li a:hover {
+    color: #000;
+    transform: translateX(8px);
+    background: rgba(212, 175, 55, 0.2);
+}
+    border-left-color: #d4af37;
+}
+
+body.dark-mode .card {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+}
+
+body.dark-mode #sobre p {
+    color: #ccc;
+}
+
+body.dark-mode footer {
+    background: #000;
+    border-top: 2px solid #d4af37;
+}
+
+body.dark-mode .modal {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .modal-content {
+    background: linear-gradient(135deg, #222 0%, #111 100%);
+    color: #fff;
+}
+
+body.dark-mode .modal-content input,
+body.dark-mode .modal-content select,
+body.dark-mode .modal-content textarea {
+    background: #222;
+    color: #fff;
+    border-color: #d4af37;
+}
+
+body.dark-mode .modal-content input:focus,
+body.dark-mode .modal-content select:focus,
+body.dark-mode .modal-content textarea:focus {
+    background: #2a2a2a;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+body.dark-mode .btn-cancel {
+    background: #333;
+    color: #d4af37;
+}
+
+body.dark-mode .btn-cancel:hover {
+    background: #555;
+}.btn-submit:hover {
     background: #fff;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
@@ -333,8 +545,8 @@ footer a:hover {
 
 .btn-cancel {
     padding: 12px;
-    background: #555;
-    color: #fff;
+    background: #ddd;
+    color: #d4af37;
     border: 1px solid #d4af37;
     border-radius: 5px;
     font-weight: bold;

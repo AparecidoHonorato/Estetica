@@ -49,4 +49,33 @@ function App() {
     }
   }, [isDarkMode]);
 
-  const handleOpenModal = () =
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  return (
+    <div className="App">
+      <Header 
+        activeSection={activeSection} 
+        onNavClick={setActiveSection}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={toggleDarkMode}
+      />
+      <Hero onScheduleClick={handleOpenModal} />
+      <Services />
+      <About />
+      <Footer />
+      <SchedulingModal isOpen={isModalOpen} onClose={handleCloseModal} />
+    </div>
+  );
+}
+
+export default App;

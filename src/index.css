@@ -52,25 +52,29 @@ header {
 
 /* ===== DARK MODE TOGGLE ===== */
 .dark-mode-toggle {
-    background: none;
-    border: 2px solid #d4af37;
-    color: #d4af37;
-    font-size: 1.5rem;
-    padding: 8px 12px;
-    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37 0%, #e5c158 100%);
+    border: none;
+    color: #000;
+    font-size: 1.2rem;
+    padding: 10px 16px;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    height: 45px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    white-space: nowrap;
 }
 
 .dark-mode-toggle:hover {
-    background: #d4af37;
-    color: #fff;
     transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+.dark-mode-toggle:active {
+    transform: scale(0.95);
 }
 
 /* MENU DROPDOWN */
@@ -418,4 +422,103 @@ body.dark-mode header {
     background: #000;
 }
 
-body.dark-
+body.dark-mode header nav .menu li .dropdown {
+    background: #222;
+}
+
+body.dark-mode header nav .menu li .dropdown li a {
+    color: #d4af37;
+}
+
+body.dark-mode .card {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+body.dark-mode .card p {
+    color: #ccc;
+}
+
+body.dark-mode #sobre p {
+    color: #ccc;
+}
+
+body.dark-mode footer {
+    background: #000;
+    color: #d4af37;
+}
+
+body.dark-mode .contatos p {
+    color: #ccc;
+}
+
+body.dark-mode .modal-content {
+    background: linear-gradient(135deg, #222 0%, #111 100%);
+    color: #fff;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background: #222;
+    color: #fff;
+    border-color: #d4af37;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    background: #2a2a2a;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+body.dark-mode .modal-actions .btn-cancel {
+    background: #333;
+    color: #d4af37;
+    border-color: #d4af37;
+}
+
+body.dark-mode .modal-actions .btn-cancel:hover {
+    background: #555;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header nav .menu {
+        flex-direction: column;
+    }
+
+    header nav .menu > li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .card {
+        flex: 0 1 calc(50% - 10px);
+    }
+
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        flex: 0 1 100%;
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+}

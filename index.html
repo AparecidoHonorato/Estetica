@@ -39,6 +39,11 @@
                             <li><a href="#telefone">Telefone</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <button id="darkModeToggle" class="dark-mode-btn" title="Alternar tema">
+                            ☀
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -123,5 +128,32 @@
     </div>
 
     <script src="spript.js"></script>
+    <script>
+        // Scroll para o topo ao carregar a página
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+        
+        // Também garante scroll ao topo imediatamente
+        window.scrollTo(0, 0);
+        
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Verificar se dark mode estava ativado antes
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☾';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isNowDark = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isNowDark);
+            darkModeToggle.textContent = isNowDark ? '☾' : '☀';
+        });
+    </script>
 </body>
 </html>

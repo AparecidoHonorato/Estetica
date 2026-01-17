@@ -55,4 +55,10 @@ export default function Header({ activeSection, onNavClick, isDarkMode, onToggle
             </li>
           </ul>
         </nav>
-        
+        <button className="dark-mode-toggle" onClick={onToggleDarkMode} title="Alternar tema">
+          {isDarkMode ? '☀️ Claro' : '🌙 Escuro'}
+        </button>
+      </div>
+    </header>
+  );
+}
