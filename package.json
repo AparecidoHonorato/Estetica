@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server-novo.js",
     "server": "node server-novo.js",
-    "dev": "npx live-server",
+    "dev": "vite",
     "test": "cypress run --headless",
     "test:open": "cypress open",
     "test:api": "bash test-api.sh",
