@@ -1,183 +1,198 @@
-# 🌺 Lumena Estética - Projeto Web Melhorado
+# 🌺 Lumena Estética - Sistema de Agendamento Online
 
-> Plataforma de agendamento online para serviços de estética. Versão 2.0 com validações, segurança e UX otimizada.
+> Plataforma moderna de agendamento para serviços de estética com **React + Vite** e backend **Express.js**. 
+> Validação completa, segurança, dark mode e totalmente responsivo.
 
-## ✨ Melhorias Implementadas (v2.0)
+---
 
-### Segurança & Backend
-- ✅ **Rate Limiting**: 5 requisições por IP/hora (proteção contra spam)
-- ✅ **Validação Rigorosa**: Todos os campos validados no frontend e backend
-- ✅ **Sanitização**: Proteção contra XSS
-- ✅ **Logs Estruturados**: Rastreamento completo de requisições
-- ✅ **HTTP Status Codes**: 201, 400, 429, 500 apropriados
+## 🎯 Visão Geral
 
-### Frontend & UX
-- ✅ **Feedback Visual**: Loading, sucesso, erro com ícones e cores
-- ✅ **Filtro de Entrada**: Nome (só letras), Telefone (só números)
-- ✅ **Dark Mode Corrigido**: CSS sintaxe perfeita, contraste WCAG AA
-- ✅ **Responsivo**: Mobile-first, media queries até 480px
+**Lumena Estética** é um sistema web profissional para agendamento de serviços de beleza, desenvolvido com:
 
-### Validação de Dados
-```javascript
-// Nome: 3-100 caracteres, apenas letras
-// Email: RFC5322 + máx 100 chars
-// Telefone: 10-11 dígitos
-// Data: Sempre futura
-// Serviço: Whitelist (Facial, Corporal, Unhas)
-// Mensagem: Máx 500 caracteres
-```
+- **Frontend**: React 18 + Vite (HMR em tempo real)
+- **Backend**: Express.js com Node.js
+- **Banco de Dados**: SQLite3
+- **Segurança**: Rate limiting, validação dupla, sanitização XSS
+- **UX**: Dark mode nativo, responsivo 360px-1920px, feedback visual completo
 
-## 🚀 Instalação Rápida
+---
 
-### Pré-requisitos
-- Node.js v14+
-- npm ou yarn
+## ⚡ Quick Start
 
-### Passos
+### Requisitos
+- **Node.js** v16+ ([Download](https://nodejs.org))
+- **npm** v7+
 
-1. **Instalar dependências**
+### Instalação (1 minuto)
+
 ```bash
+# 1. Clonar e entrar no projeto
+git clone https://github.com/AparecidoHonorato/Estetica.git
+cd Estetica
+
+# 2. Instalar dependências
 npm install
-```
 
-2. **Iniciar o servidor**
-```bash
+# 3. Iniciar em desenvolvimento (em 2 abas de terminal)
+
+# Terminal 1: Servidor Express (porta 3000)
 node server-novo.js
+
+# Terminal 2: Vite Dev (porta 5173)
+npm run dev
 ```
 
-3. **Acessar în navegador**
-```
-http://localhost:3000
-```
+**Acesso**: Abra http://localhost:5173 no navegador
 
-### Se quiser usar Google Calendar (opcional)
+---
+
+## 🚀 Comandos Disponíveis
+
 ```bash
-# 1. Cria conta Google Cloud
-# 2. Gera credentials.json
-# 3. Coloca no root do projeto
-# Servidor detecta automaticamente
+# Iniciar desenvolvimento (Vite hot reload)
+npm run dev
+
+# Build para produção
+npm run build
+
+# Preview da build
+npm run preview
+
+# Executar testes Cypress (opcional)
+npm run test:e2e
 ```
 
-## 📋 Estrutura de Arquivos
+---
+
+## 📁 Estrutura do Projeto
 
 ```
-📁 estetica/
-├── 📄 index.html              # Frontend principal
-├── 📄 server-novo.js          # Backend Node.js (melhorado)
-├── 📄 style.css               # Estilos (sintaxe corrigida)
-├── 📄 .env                   # Configurações
-├── 📄 GUIA_FIXES.md          # Documentação de correções
-├── 📄 README.md              # Este arquivo
+Estetica/
 │
-├── 📁 src/
-│   ├── 📄 main.jsx
-│   ├── 📄 App.jsx
-│   ├── 📄 App.css
-│   ├── 📄 index.css
-│   └── 📁 components/
-│       ├── Header.jsx
-│       ├── Hero.jsx
-│       ├── Services.jsx
-│       ├── About.jsx
-│       ├── Footer.jsx
-│       ├── SchedulingModal.jsx
-│       └── ResponsiveImage.jsx
+├── 📄 index.html                    # Template HTML
+├── 📄 style.css                     # Estilos globais (1200+ linhas)
+├── 📄 script.js                     # JS vanilla (fallback)
+├── 📄 .gitignore                    # Segurança (node_modules, env, etc)
+├── 📄 .env                          # Variáveis de ambiente
+├── 📄 package.json                  # Dependências e scripts
+├── 📄 vite.config.js               # Config Vite com proxy
+│
+├── 🚀 server-novo.js                # EXPRESS BACKEND
+│   ├── POST /api/agendamentos       # Criar agendamento
+│   ├── GET /api/agendamentos/:id    # Consultar
+│   ├── Rate limiting                # 5 req/hora por IP
+│   └── Google Calendar (opcional)
+│
+├── 📁 src/ (React)
+│   ├── main.jsx                     # Entry point
+│   ├── App.jsx                      # Componente root
+│   └── components/
+│       ├── Header.jsx               # Navbar + Dark mode
+│       ├── Hero.jsx                 # CTA "Agende"
+│       ├── Services.jsx             # Catálogo de serviços
+│       ├── About.jsx                # Sobre a empresa
+│       ├── Footer.jsx               # Rodapé
+│       └── SchedulingModal.jsx      # ⭐ Modal de agendamento
 │
 ├── 📁 database/
-│   └── agendamentos.db        # SQLite (criado automaticamente)
+│   ├── db.js                        # Config SQLite
+│   └── agendamentos.db              # Banco (criado automaticamente)
 │
-└── 📁 public/
-    └── imagens e assets
+└── 📁 cypress/                      # E2E Tests
 ```
 
-## 🔒 Proteção contra Spam
+---
 
-O servidor implementa rate limiting automático:
+## ✨ Funcionalidades Principais
 
-```javascript
-// Máximo de requisições
-const RATE_LIMIT = 5;
+### 1. Sistema de Agendamento
+- ✅ Modal elegante e responsivo
+- ✅ Validação real-time em todos os campos
+- ✅ Data picker com bloqueio de datas passadas
+- ✅ Seletor de serviço (Facial, Corporal, Unhas)
+- ✅ Mensagem opcional
 
-// Período de limite
-const RATE_LIMIT_WINDOW = 3600000; // 1 hora
-
-// Resposta quando limite atingido
-// HTTP 429: "Muitas requisições. Tente novamente em 1 hora."
+### 2. Segurança
+```
+✓ Rate Limiting: 5 req/hora por IP
+✓ Validação dupla (Frontend + Backend)
+✓ SQL Injection: Prepared statements
+✓ XSS: HTML escape e sanitização
+✓ Logs estruturados com IP origem
 ```
 
-### Como funciona
-1. Servidor identifica IP do cliente
-2. Conta requisições por hora
-3. Depois de 5 requisições, retorna HTTP 429
-4. Contador reseta após 1 hora
+### 3. Dark Mode
+- ✅ Toggle no header
+- ✅ Persiste em localStorage
+- ✅ Contraste WCAG AA
+- ✅ Transições smooth
 
-## 📊 Logs do Servidor
+### 4. Responsividade
+- ✅ Mobile-first (360px-1920px)
+- ✅ Touch-friendly
+- ✅ Menu hambúrguer em small devices
+- ✅ Imagens otimizadas
 
-### Exemplos
+---
 
-**Requisição Recebida:**
+## 🔐 Segurança & Configuração
+
+### `.gitignore` (CRÍTICO)
+
 ```
-📝 [15/02/2026 14:30:45] Nova requisição de agendamento
-   IP: 192.168.1.100
-   Nome: Maria Silva, Email: maria@email.com
+# Variáveis sensíveis - NUNCA COMMITAR
+.env
+.env.local
+credentials.json
+
+# Dependências - NUNCA COMMITAR
+node_modules/
+package-lock.json
+yarn.lock
+
+# Banco de dados local
+database/*.db
+
+# Logs e build
+*.log
+dist/
+build/
 ```
 
-**Sucesso:**
-```
-✅ Validação OK
-✅ Agendamento #42 salvo no banco
-✅ Evento adicionado ao Google Calendar
-✅ Resposta enviada para cliente
-```
+### ⚠️ Google Calendar (Opcional)
 
-**Erro:**
-```
-❌ Validação falhou: Email inválido (ex: seu@email.com)
-```
+Se quiser integrar com Google Calendar:
 
-## 📱 Responsividade
-
-### Quebras de Layout
-
-| Tela | Mudanças |
-|------|----------|
-| **Desktop** (>768px) | Layout horizontal, menu desktop |
-| **Tablet** (768px) | Menu adapta, cards em coluna dupla |
-| **Mobile** (480-767px) | Menu empilhado, 1 coluna |
-| **Pequeno** (<480px) | Fonte reduzida, espaço mínimo |
-
-### Testar
 ```bash
-# Chrome DevTools > F12 > Ctrl+Shift+M
-# Ou redimensionar janela
+# 1. Gerar credentials.json no Google Cloud Console
+# 2. IMPORTANTE: Adicionar ao .gitignore ANTES de commitar
+# 3. Colocar na raiz do projeto
+
+# Verificar que NÃO está versionado
+git status | grep credentials  # Não deve aparecer
+
+# Se já foi commitado por erro:
+git rm --cached credentials.json
+git commit -m "remove credentials.json"
 ```
 
-## 🎨 Tema Dark Mode
+---
 
-Perfeito para usar à noite. Implementado com:
-- Background: `#111` (quase preto)
-- Texto: `#eee` (quase branco)
-- Acentos: `#d4af37` (dourado elegante)
-- Contraste: **Superior a 4.5:1** ✅ WCAG AA
-
-**Como habilitar:**
-Clique no botão 🌙 no header
-
-## 📡 API Reference
+## 📡 API REST
 
 ### POST /api/agendamentos
-Cria novo agendamento.
+Criar novo agendamento.
 
 **Request:**
 ```json
 {
-  "nome": "Maria Silva",
-  "email": "maria@email.com",
-  "whatsapp": "11987654321",
+  "nome": "João Silva",
+  "email": "joao@example.com",
+  "whatsapp": "41999998888",
   "servico": "Facial",
-  "data": "2026-02-20",
+  "data": "2026-03-01",
   "hora": "14:30",
-  "mensagem": "Tenho pele sensível"
+  "mensagem": "Texto opcional..."
 }
 ```
 
@@ -185,21 +200,20 @@ Cria novo agendamento.
 ```json
 {
   "sucesso": true,
-  "id": 42,
-  "mensagem": "✅ Agendamento realizado!",
-  "eventoId": "abc123xyz"
+  "id": 1,
+  "mensagem": "Agendamento criado com sucesso"
 }
 ```
 
-**Response (400):**
+**Response (400) - Validação:**
 ```json
 {
   "sucesso": false,
-  "mensagem": "Email inválido (ex: seu@email.com)"
+  "mensagem": "WhatsApp inválido (10-11 dígitos)"
 }
 ```
 
-**Response (429):**
+**Response (429) - Rate Limited:**
 ```json
 {
   "sucesso": false,
@@ -207,116 +221,117 @@ Cria novo agendamento.
 }
 ```
 
-### GET /api/agendamentos
-Lista últimos 100 agendamentos.
+---
 
-**Response:**
-```json
-[
-  {
-    "id": 42,
-    "nome": "Maria Silva",
-    "servico": "Facial",
-    "data": "2026-02-20",
-    "hora": "14:30",
-    "data_criacao": "2026-02-15 14:22:30"
-  },
-  ...
-]
-```
+## 🧪 Testes
 
-### DELETE /api/agendamentos/:id
-Deleta agendamento (requer token admin).
-
-## 🐛 Problemas Comuns
-
-### "Erro ao conectar com o servidor"
-- Servidor parou? `npm start` ou `node server-novo.js`
-- Porta 3000 em uso? Mudar em `.env` → `PORT=3001`
-
-### "Rate limit atingido"
-- Normal! Esperar 1 hora ou mudar de IP/rede
-
-### Dark mode não salva
-- Verificar localStorage do navegador
-- DevTools > Application > Cookies > localStorage
-
-### Email não chega
-- Configurar Google Calendar (credentials.json)
-- Checar logs do servidor
-
-## 🔧 Configuração Avançada
-
-### Arquivo `.env`
-```env
-PORT=3000
-ADMIN_TOKEN=seu-token-super-seguro
-GOOGLE_CREDENTIALS_PATH=./credentials.json
-RATE_LIMIT_REQUESTS=5
-RATE_LIMIT_WINDOW_HOURS=1
-```
-
-### Variáveis de Ambiente
 ```bash
-# Iniciar em porta diferente
-PORT=3001 node server-novo.js
+# Rodar Cypress
+npx cypress open
 
-# Com token admin
-ADMIN_TOKEN=secreto123 RATE_LIMIT_REQUESTS=10 node server-novo.js
+# Testes cobrem:
+# ✓ Homepage load
+# ✓ Modal open/close
+# ✓ Form validation
+# ✓ Submit agendamento
+# ✓ API endpoints
 ```
-
-## 💾 Banco de Dados
-
-SQLite local (automático).
-
-### Tabela `agendamentos`
-```sql
-id              INTEGER PRIMARY KEY
-nome            TEXT NOT NULL
-email           TEXT NOT NULL
-whatsapp        TEXT NOT NULL
-servico         TEXT NOT NULL
-data            TEXT NOT NULL
-hora            TEXT NOT NULL
-mensagem        TEXT
-ip_origem       TEXT
-data_criacao    DATETIME DEFAULT CURRENT_TIMESTAMP
-```
-
-### Backup
-```bash
-# Copiar arquivo database/agendamentos.db
-cp database/agendamentos.db backups/agendamentos.db
-```
-
-## 📈 Próximos Passos
-
-| Prioridade | Tarefa | Status |
-|-----------|--------|---------|
-| 🔴 Alta | Deploy em HTTPS | ⏳ TODO |
-| 🔴 Alta | Confirmar agendamento por email | ⏳ TODO |
-| 🟡 Média | Dashboard de admin | ⏳ TODO |
-| 🟡 Média | Integração WhatsApp | ⏳ TODO |
-| 🟢 Baixa | Analytics e relatórios | ⏳ TODO |
-
-## 📞 Suporte
-
-**Problemas com validação?**
-→ Ver [GUIA_FIXES.md](GUIA_FIXES.md)
-
-**Dúvidas sobre API?**
-→ Verificar seção "API Reference"
-
-**Quero personalizar?**
-→ Editar `style.css` ou `.jsx` conforme necessário
-
-## 📄 Licença
-
-Projeto pessoal. Sinta-se livre para usar e modificar.
 
 ---
 
-**Projeto:** Lumena Estética  
-**Versão:** 2.0  
-**Última atualização:** 15/02/2026  
-**Status:** ✅ Pronto para uso e produção
+## 🐛 Troubleshooting
+
+### "Cannot find module '@vitejs/plugin-react'"
+```bash
+npm install @vitejs/plugin-react
+```
+
+### "EADDRINUSE: address already in use :::3000"
+```bash
+# Windows: matar processo
+netstat -ano | findstr :3000
+taskkill /PID <PID> /F
+
+# Ou usar outra porta
+set PORT=3001 && node server-novo.js
+```
+
+### "Modal não abre"
+- Abrir console do navegador (F12)
+- Verificar se servidor Express está rodando
+- Verificar Network tab para erro de API
+
+### "Dark mode não persiste"
+```javascript
+// No console:
+localStorage.getItem('dark-mode')  // Deve retornar 'true' ou 'false'
+```
+
+---
+
+## 🚢 Deploy
+
+### Netlify (Frontend Only)
+
+```bash
+# Build
+npm run build
+
+# Deploy pasta 'dist'
+# Drag-and-drop ou use netlify-cli
+npm install -g netlify-cli
+netlify deploy
+```
+
+### Railway / Render (Full Stack)
+
+```bash
+# Conectar repositório GitHub
+# Build command:
+npm install
+
+# Start command:
+node server-novo.js
+```
+
+---
+
+## 📊 Validação de Dados
+
+| Campo | Regra | Exemplo |
+|-------|-------|---------|
+| Nome | 3-100 chars, apenas letras | Maria Silva |
+| Email | RFC válido, máx 100 chars | maria@exemplo.com |
+| WhatsApp | 10-11 dígitos | 11987654321 |
+| Data | Sempre futura | 2026-03-01 |
+| Serviço | Facial, Corporal, Unhas | Facial |
+| Mensagem | Máx 500 caracteres | Tenho pele sensível... |
+
+---
+
+## 💡 Próximas Melhorias
+
+- [ ] Autenticação (JWT)
+- [ ] Sistema de pagamento (Stripe)
+- [ ] Painel administrativo
+- [ ] Notificação WhatsApp
+- [ ] Exportar calendário (iCal)
+
+---
+
+## 👨‍💻 Autor
+
+**Aparecido Honorato**  
+GitHub: [@AparecidoHonorato](https://github.com/AparecidoHonorato)
+
+---
+
+## 📄 Licença
+
+MIT License
+
+---
+
+**Versão**: 2.1.0-react  
+**Última atualização**: Fevereiro 2026  
+**Status**: ✅ Pronto para produção
