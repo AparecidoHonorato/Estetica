@@ -49,66 +49,68 @@ body.dark-mode header {
   border-bottom-color: #333;
 }
 
-header .container {
+header .header-container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 30px;
 }
 
-/* LOGO */
-.logo {
+/* LOGO BUTTON - Redondo Dourado */
+.logo-btn {
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #d4af37;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid #d4af37;
+}
+
+.logo-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
 .logo-img {
-  width: 60px;
+  width: 50px;
   height: auto;
-}
-
-.logo h1 {
-  font-size: 1.8rem;
-  color: #d4af37;
+  max-width: 90%;
 }
 
 /* MENU */
-header nav .menu,
-header nav .menu ul {
+header nav .menu {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-header nav .menu {
   display: flex;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 8px 15px;
-  border-radius: 30px;
-  border: 2px solid #d4af37;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
 }
 
 header nav .menu > li {
   position: relative;
-  margin-left: 20px;
 }
 
 header nav .menu > li > a {
   color: #333;
   text-decoration: none;
   font-weight: 500;
-  padding: 8px 18px;
+  padding: 12px 24px;
   display: inline-block;
   transition: all 0.25s ease;
-  border-radius: 20px;
-  font-size: 0.95rem;
+  border-radius: 25px;
+  font-size: 1rem;
   letter-spacing: 0.3px;
-  border: 1px solid transparent;
+  border: 2px solid #d4af37;
   cursor: pointer;
 }
 
@@ -128,85 +130,22 @@ body.dark-mode header nav .menu > li > a:hover {
   background: #d4af37;
 }
 
-/* DROPDOWN */
-header nav .menu li .dropdown {
-  display: none;
-  position: absolute;
-  top: 50px;
-  left: 0;
-  background: #fff;
-  padding: 15px 0;
-  border-radius: 10px;
-  min-width: 180px;
-  z-index: 100;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  animation: slideDown 0.3s ease;
-}
-
-body.dark-mode header nav .menu li .dropdown {
-  background: #1a1a1a;
-  border-color: #333;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-}
-
-header nav .menu li:hover > .dropdown {
-  display: block;
-}
-
-header nav .menu li .dropdown li a {
-  display: block;
-  padding: 10px 20px;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: 0.9rem;
-}
-
-body.dark-mode header nav .menu li .dropdown li a {
-  color: #ddd;
-}
-
-header nav .menu li .dropdown li a:hover {
-  background: #d4af37;
-  color: #000;
-  padding-left: 24px;
-}
-
-body.dark-mode header nav .menu li .dropdown li a:hover {
-  background: #d4af37;
-  color: #000;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* DARK MODE BUTTON */
 .dark-mode-btn {
   background: transparent;
   color: #d4af37;
-  border: 1px solid #d4af37;
-  padding: 8px 12px;
+  border: 2px solid #d4af37;
+  padding: 10px 14px;
   border-radius: 50%;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   flex-shrink: 0;
 }
 
@@ -665,41 +604,66 @@ body.dark-mode .btn-cancel:hover {
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
-  header .container {
+  header .header-container {
     width: 95%;
-    flex-wrap: wrap;
     gap: 15px;
   }
 
-  .logo {
-    flex: 1;
-    min-width: 200px;
-  }
-
   header nav .menu {
-    order: 2;
-    width: 100%;
-    padding: 10px;
-    gap: 5px;
-  }
-
-  header nav .menu > li {
-    margin-left: 10px;
-    flex: 1;
-    min-width: 80px;
+    gap: 10px;
   }
 
   header nav .menu > li > a {
-    padding: 8px 10px;
-    font-size: 0.85rem;
-    white-space: nowrap;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .logo-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .logo-img {
+    width: 40px;
   }
 
   .dark-mode-btn {
-    order: 3;
-    width: 100%;
-    margin-top: 10px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
+}
+
+@media (max-width: 480px) {
+  header .header-container {
+    width: 95%;
+    gap: 8px;
+  }
+
+  header nav .menu {
+    gap: 5px;
+  }
+
+  header nav .menu > li > a {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .logo-btn {
+    width: 45px;
+    height: 45px;
+  }
+
+  .logo-img {
+    width: 35px;
+  }
+
+  .dark-mode-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
 
   .hero {
     padding: 80px 20px;

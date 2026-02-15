@@ -10,31 +10,17 @@ export default function Header({ activeSection, onNavClick, isDarkMode, onToggle
   return (
     <header>
       <div className="header-container">
-        <div className="logo">
+        <div className="logo-btn">
           <img 
             src="image.png" 
-            alt="Silhueta de Mulher" 
+            alt="Lumena Estética" 
             className="logo-img"
             loading="lazy"
             decoding="async"
           />
-          <h1>Lumena Estética</h1>
         </div>
         <nav>
           <ul className="menu">
-            <li>
-              <a 
-                className={activeSection === 'servicos' ? 'active' : ''}
-                onClick={() => scrollToSection('servicos')}
-              >
-                Serviços
-              </a>
-              <ul className="dropdown">
-                <li><a onClick={() => scrollToSection('facial')}>Facial</a></li>
-                <li><a onClick={() => scrollToSection('corporal')}>Corporal</a></li>
-                <li><a onClick={() => scrollToSection('unhas')}>Unhas</a></li>
-              </ul>
-            </li>
             <li>
               <a 
                 className={activeSection === 'sobre' ? 'active' : ''}
@@ -42,10 +28,6 @@ export default function Header({ activeSection, onNavClick, isDarkMode, onToggle
               >
                 Sobre
               </a>
-              <ul className="dropdown">
-                <li><a onClick={() => scrollToSection('sobre')}>Nossa Equipe</a></li>
-                <li><a onClick={() => scrollToSection('sobre')}>Missão</a></li>
-              </ul>
             </li>
             <li>
               <a 
@@ -54,15 +36,16 @@ export default function Header({ activeSection, onNavClick, isDarkMode, onToggle
               >
                 Contato
               </a>
-              <ul className="dropdown">
-                <li><a onClick={() => scrollToSection('contato')}>Email</a></li>
-                <li><a onClick={() => scrollToSection('contato')}>Telefone</a></li>
-              </ul>
             </li>
           </ul>
         </nav>
-        <button className="dark-mode-toggle" onClick={onToggleDarkMode} title="Alternar tema">
-          {isDarkMode ? '☀️ Claro' : '🌙 Escuro'}
+        <button 
+          className="dark-mode-btn" 
+          onClick={onToggleDarkMode} 
+          title="Alternar tema"
+          aria-label="Alternar entre modo claro e escuro"
+        >
+          {isDarkMode ? '☀️' : '🌙'}
         </button>
       </div>
     </header>
