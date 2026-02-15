@@ -11,7 +11,13 @@ export default function Header({ activeSection, onNavClick, isDarkMode, onToggle
     <header>
       <div className="header-container">
         <div className="logo">
-          <img src="image.png" alt="Silhueta de Mulher" className="logo-img" />
+          <img 
+            src="image.png" 
+            alt="Silhueta de Mulher" 
+            className="logo-img"
+            loading="lazy"
+            decoding="async"
+          />
           <h1>Lumena Estética</h1>
         </div>
         <nav>

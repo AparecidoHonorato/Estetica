@@ -15,6 +15,19 @@ function App() {
     return saved ? JSON.parse(saved) : false;
   });
 
+  // Aplicar tema ao carregar a página (garante sincronização imediata)
+  useEffect(() => {
+    const saved = localStorage.getItem('darkMode');
+    const isDark = saved ? JSON.parse(saved) : false;
+    
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      setIsDarkMode(true);
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, []);
+
   // Detectar seção ativa ao fazer scroll
   useEffect(() => {
     const handleScroll = () => {

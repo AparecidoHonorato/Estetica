@@ -20,14 +20,22 @@ function inicializarBanco() {
         CREATE TABLE IF NOT EXISTS agendamentos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
+            email TEXT NOT NULL,
             whatsapp TEXT NOT NULL,
             servico TEXT NOT NULL,
             data TEXT NOT NULL,
-            hora TEXT NOT NULL,
+            hora TEXT,
             mensagem TEXT,
             data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     `);
+
+    // Adicionar coluna email se não existir (para bancos existentes)
+    db.run(`ALTER TABLE agendamentos ADD COLUMN email TEXT`, (err) => {
+        if (!err || err.message.includes('duplicate column')) {
+            // Coluna já existe ou foi adicionada com sucesso
+        }
+    });
 }
 
 module.exports = db;

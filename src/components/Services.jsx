@@ -23,7 +23,13 @@ export default function Services() {
       <div className="cards">
         {services.map(service => (
           <div key={service.id} className="card" id={service.id}>
-            <img src="image.png" alt={service.title} className="card-img" />
+            <img 
+              src="image.png" 
+              alt={service.title} 
+              className="card-img"
+              loading="lazy"
+              decoding="async"
+            />
             <h3>{service.title}</h3>
             <p>{service.description}</p>
           </div>

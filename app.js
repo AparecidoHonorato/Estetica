@@ -12,13 +12,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
 // Função para gerar URL do Google Calendar
-function generateGoogleCalendarUrl(nome, servico, data, whatsapp, mensagem) {
+function generateGoogleCalendarUrl(nome, servico, data, whatsapp, email, mensagem) {
     const dataObj = new Date(data);
     const startTime = dataObj.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     const endTime = new Date(dataObj.getTime() + 3600000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     
     const titulo = `Agendamento: ${nome} - ${servico}`;
-    const descricao = `Nome: ${nome}%0AWhatsApp: ${whatsapp}%0AServiço: ${servico}%0AMensagem: ${mensagem || 'Sem mensagem'}`;
+    const descricao = `Nome: ${nome}%0AEmail: ${email}%0AWhatsApp: ${whatsapp}%0AServiço: ${servico}%0AMensagem: ${mensagem || 'Sem mensagem'}`;
     
     const url = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(titulo)}&dates=${startTime}/${endTime}&details=${descricao}&location=Lumena%20Estética`;
     
@@ -32,10 +32,10 @@ app.get('/', (req, res) => {
 
 // Rota POST para salvar agendamento e adicionar ao calendário
 app.post('/api/agendamentos', (req, res) => {
-    const { nome, whatsapp, servico, data, mensagem } = req.body;
+    const { nome, email, whatsapp, servico, data, mensagem } = req.body;
 
     // Validar dados
-    if (!nome || !whatsapp || !servico || !data) {
+    if (!nome || !email || !whatsapp || !servico || !data) {
         return res.status(400).json({ 
             sucesso: false, 
             mensagem: 'Dados incompletos' 
@@ -43,9 +43,9 @@ app.post('/api/agendamentos', (req, res) => {
     }
 
     // Inserir no banco de dados
-    const sql = `INSERT INTO agendamentos (nome, whatsapp, servico, data, mensagem) VALUES (?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO agendamentos (nome, email, whatsapp, servico, data, mensagem) VALUES (?, ?, ?, ?, ?, ?)`;
     
-    db.run(sql, [nome, whatsapp, servico, data, mensagem || ''], function(err) {
+    db.run(sql, [nome, email, whatsapp, servico, data, mensagem || ''], function(err) {
         if (err) {
             console.error('Erro ao salvar agendamento:', err);
             return res.status(500).json({ 
@@ -55,7 +55,7 @@ app.post('/api/agendamentos', (req, res) => {
         }
 
         // Gerar URL do Google Calendar
-        const calendarUrl = generateGoogleCalendarUrl(nome, servico, data, whatsapp, mensagem);
+        const calendarUrl = generateGoogleCalendarUrl(nome, servico, data, whatsapp, email, mensagem);
 
         res.json({ 
             sucesso: true, 
