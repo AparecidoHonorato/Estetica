@@ -489,9 +489,6 @@ body.dark-mode header nav .menu li .dropdown li a:hover {
     transform: translateX(8px);
     background: rgba(212, 175, 55, 0.2);
 }
-    border-left-color: #d4af37;
-}
-
 body.dark-mode .card {
     background: rgba(0, 0, 0, 0.9);
     color: #fff;
@@ -560,4 +557,74 @@ body.dark-mode .btn-cancel:hover {
     background: #777;
     border-color: #fff;
     color: #fff;
+}
+/* ===== DARK MODE CORRIGIDO ===== */
+
+body.dark-mode {
+    background: #111;
+    color: #eee;
+}
+
+/* HEADER */
+body.dark-mode header {
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+/* MENU */
+body.dark-mode header nav .menu {
+    background: rgba(20,20,20,0.95);
+    border-color: #d4af37;
+}
+
+body.dark-mode header nav .menu > li > a {
+    color: #d4af37;
+    border-color: #d4af37;
+}
+
+/* DROPDOWN */
+body.dark-mode header nav .menu li .dropdown {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+body.dark-mode header nav .menu li .dropdown li a {
+    color: #ddd;
+}
+
+body.dark-mode header nav .menu li .dropdown li a:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+/* CARDS */
+body.dark-mode .card {
+    background: #1a1a1a;
+    color: #eee;
+    border-color: #d4af37;
+}
+
+/* SOBRE */
+body.dark-mode #sobre p {
+    color: #ccc;
+}
+
+/* FOOTER */
+body.dark-mode footer {
+    background: #000;
+}
+
+/* MODAL */
+body.dark-mode .modal-content {
+    background: #1a1a1a;
+    color: #eee;
+}
+
+body.dark-mode .modal-content input,
+body.dark-mode .modal-content textarea,
+body.dark-mode .modal-content select {
+    background: #222;
+    color: #eee;
+    border-color: #555;
 }

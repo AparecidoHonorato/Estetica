@@ -162,14 +162,14 @@ export default function SchedulingModal({ isOpen, onClose }) {
           <div className="modal-actions">
             <button
               type="button"
-              className="modal-actions btn-cancel"
+              className="btn btn-cancel"
               onClick={onClose}
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="btn"
+              className="btn btn-submit"
             >
               Agendar
             </button>

@@ -307,7 +307,12 @@ footer p {
     background: rgba(0, 0, 0, 0.7);
     z-index: 1000;
     justify-content: center;
-    align-items: center;
+    /* Alinha o modal mais para cima em vez de centralizado */
+    align-items: flex-start;
+    padding-top: 6vh;
+    /* Permite rolagem caso o modal (ou seu conteúdo) exceda a viewport */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay.active {
@@ -321,6 +326,9 @@ footer p {
     max-width: 500px;
     width: 90%;
     border: 2px solid #d4af37;
+    /* Limita a altura do modal e adiciona rolagem quando necessário */
+    max-height: calc(100vh - 12vh);
+    overflow-y: auto;
 }
 
 .modal-content h3 {
@@ -377,7 +385,8 @@ footer p {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: transform 0.3s;
+    /* Remover animação/transformações nos botões do modal */
+    transition: none;
 }
 
 .modal-actions .btn-cancel {
@@ -391,7 +400,33 @@ footer p {
 }
 
 .modal-actions button:hover {
-    transform: scale(1.05);
+    transform: none;
+}
+
+/* Remover sombras e transições de cor nos botões especificamente dentro do modal */
+.modal-actions .btn,
+.modal-actions .btn-cancel,
+.modal-actions .btn-submit {
+    transition: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+.modal-actions .btn:focus,
+.modal-actions .btn-cancel:focus,
+.modal-actions .btn-submit:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+
+.modal-actions .btn-cancel:hover {
+    background: #ddd;
+    color: #d4af37;
+}
+
+.modal-actions .btn-submit:hover {
+    background: #d4af37;
+    color: #000;
 }
 
 .modal-message {
@@ -455,6 +490,21 @@ body.dark-mode .contatos p {
 body.dark-mode .modal-content {
     background: linear-gradient(135deg, #222 0%, #111 100%);
     color: #fff;
+    /* Garantir mesma regra no modo escuro */
+    max-height: calc(100vh - 12vh);
+    overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+    .modal-overlay {
+        padding-top: 3vh;
+    }
+
+    .modal-content {
+        max-width: 95%;
+        max-height: calc(100vh - 6vh);
+        padding: 20px;
+    }
 }
 
 body.dark-mode .form-group input,
