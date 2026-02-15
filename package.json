@@ -3,12 +3,16 @@
   "version": "2.0.0",
   "description": "Plataforma de agendamento online para serviços de estética",
   "main": "server-novo.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node server-novo.js",
     "server": "node server-novo.js",
     "dev": "npx live-server",
-    "test": "bash test-api.sh"
+    "test": "cypress run --headless",
+    "test:open": "cypress open",
+    "test:api": "bash test-api.sh",
+    "lint": "eslint src --fix",
+    "build": "vite build"
   },
   "keywords": [
     "estética",
@@ -24,6 +28,8 @@
     "googleapis": "^118.0.0"
   },
   "devDependencies": {
+    "cypress": "^13.6.0",
+    "eslint": "^8.55.0",
     "vite": "^4.4.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
