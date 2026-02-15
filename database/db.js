@@ -1,11 +1,15 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+import sqlite3 from 'sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Caminho do banco de dados
 const dbPath = path.join(__dirname, 'agendamentos.db');
 
 // Criar conexão
-const db = new sqlite3.Database(dbPath, (err) => {
+const db = new (sqlite3.verbose()).Database(dbPath, (err) => {
     if (err) {
         console.error('Erro ao conectar ao banco de dados:', err);
     } else {
@@ -38,4 +42,4 @@ function inicializarBanco() {
     });
 }
 
-module.exports = db;
+export default db;

@@ -1,8 +1,13 @@
-const express = require('express');
-const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
-const { google } = require('googleapis');
-const fs = require('fs');
+import express from 'express';
+import path from 'path';
+import sqlite3 from 'sqlite3';
+import { google } from 'googleapis';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import db from './database/db.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -57,36 +62,6 @@ if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
   console.log('📁 Pasta database criada');
 }
-
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error('❌ Erro ao conectar ao banco:', err.message);
-  } else {
-    console.log('✅ Banco de dados conectado');
-    
-    // Criar tabela se não existir
-    db.run(`
-      CREATE TABLE IF NOT EXISTS agendamentos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        email TEXT NOT NULL,
-        whatsapp TEXT NOT NULL,
-        servico TEXT NOT NULL,
-        data TEXT NOT NULL,
-        hora TEXT NOT NULL,
-        mensagem TEXT,
-        ip_origem TEXT,
-        data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
-      )
-    `, (err) => {
-      if (err) {
-        console.error('❌ Erro ao criar tabela:', err.message);
-      } else {
-        console.log('✅ Tabela agendamentos verificada/criada');
-      }
-    });
-  }
-});
 
 // ===== GOOGLE CALENDAR SETUP =====
 let calendar = null;
@@ -249,11 +224,11 @@ app.post('/api/agendamentos', async (req, res) => {
 
     // ===== SALVAR NO BANCO =====
     const sql = `
-      INSERT INTO agendamentos (nome, email, whatsapp, servico, data, hora, mensagem, ip_origem)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO agendamentos (nome, email, whatsapp, servico, data, hora, mensagem)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.run(sql, [nomeLimpo, emailLimpo, telefoneLimpo, servico, data, hora, mensagemLimpa, ipOrigem], async function(err) {
+    db.run(sql, [nomeLimpo, emailLimpo, telefoneLimpo, servico, data, hora, mensagemLimpa], async function(err) {
       if (err) {
         console.error(`❌ Erro ao salvar no banco: ${err.message}`);
         return res.status(500).json({

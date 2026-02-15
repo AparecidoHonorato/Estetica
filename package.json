@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Plataforma de agendamento online para serviços de estética",
   "main": "server-novo.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "node server-novo.js",
     "server": "node server-novo.js",
@@ -23,6 +23,7 @@
   "author": "Seu Nome",
   "license": "MIT",
   "dependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
     "express": "^4.18.2",
     "googleapis": "^118.0.0",
     "sqlite3": "^5.1.6"

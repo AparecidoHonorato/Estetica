@@ -115,12 +115,25 @@ export default function SchedulingModal({ isOpen, onClose }) {
     setMessageType('loading');
 
     try {
+      // Separar data e hora do datetime-local
+      const [data, hora] = formData.data.split('T');
+      
+      const payloadData = {
+        nome: formData.nome,
+        email: formData.email,
+        whatsapp: formData.whatsapp,
+        servico: formData.servico,
+        data: data,
+        hora: hora,
+        mensagem: formData.mensagem
+      };
+
       const response = await fetch('/api/agendamentos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payloadData)
       });
 
       // Verificar se resposta é válida
@@ -128,13 +141,13 @@ export default function SchedulingModal({ isOpen, onClose }) {
         throw new Error(`Erro HTTP: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data_response = await response.json();
 
-      if (data.sucesso) {
+      if (data_response.sucesso) {
         setMessage('✅ Agendamento realizado com sucesso! Redirecionando...');
         setMessageType('success');
         
-        console.log('✓ Agendamento criado com ID:', data.id);
+        console.log('✓ Agendamento criado com ID:', data_response.id);
 
         // Resetar formulário após 3 segundos
         setTimeout(() => {
@@ -151,10 +164,10 @@ export default function SchedulingModal({ isOpen, onClose }) {
           onClose();
         }, 3000);
       } else {
-        setMessage('❌ ' + (data.mensagem || 'Erro ao agendar'));
+        setMessage('❌ ' + (data_response.mensagem || 'Erro ao agendar'));
         setMessageType('error');
         setIsLoading(false);
-        console.error('Erro no agendamento:', data);
+        console.error('Erro no agendamento:', data_response);
       }
     } catch (error) {
       console.error('Erro ao enviar formulário:', error);
