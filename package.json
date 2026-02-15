@@ -24,15 +24,15 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
-    "sqlite3": "^5.1.6",
-    "googleapis": "^118.0.0"
+    "googleapis": "^118.0.0",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "cypress": "^13.6.0",
+    "cypress": "^13.17.0",
     "eslint": "^8.55.0",
-    "vite": "^4.4.9",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite": "^4.4.9"
   },
   "engines": {
     "node": ">=14.0.0"

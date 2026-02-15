@@ -9,9 +9,9 @@ export default function Footer() {
         </div>
         <div className="redes">
           <h3>Redes Sociais</h3>
-          <a href="#instagram">Instagram</a>
-          <a href="#facebook">Facebook</a>
-          <a href="#whatsapp">WhatsApp</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://wa.me/551999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         </div>
       </div>
       <p>&copy; 2026 Lumena Estética. Todos os direitos reservados.</p>

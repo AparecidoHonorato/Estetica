@@ -239,16 +239,7 @@ export default function SchedulingModal({ isOpen, onClose }) {
               name="servico"
               value={formData.servico}
               onChange={handleChange}
-              className={fieldErrors.servico ? 'input-error' : ''}
-              style={{
-                width: '100%',
-                padding: '10px',
-                background: '#222',
-                border: `1px solid ${fieldErrors.servico ? '#dc3545' : '#d4af37'}`,
-                color: '#fff',
-                borderRadius: '5px',
-                fontSize: '1rem'
-              }}
+              className={`select-servico ${fieldErrors.servico ? 'input-error' : ''}`}
             >
               <option value="Facial">Facial</option>
               <option value="Corporal">Corporal</option>

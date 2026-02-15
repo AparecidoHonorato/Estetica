@@ -23,16 +23,24 @@ export default function Header({ activeSection, onNavClick, isDarkMode, onToggle
           <ul className="menu">
             <li>
               <a 
+                href="#sobre"
                 className={activeSection === 'sobre' ? 'active' : ''}
-                onClick={() => scrollToSection('sobre')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('sobre');
+                }}
               >
                 Sobre
               </a>
             </li>
             <li>
               <a 
+                href="#contato"
                 className={activeSection === 'contato' ? 'active' : ''}
-                onClick={() => scrollToSection('contato')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('contato');
+                }}
               >
                 Contato
               </a>
