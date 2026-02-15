@@ -1,8 +1,34 @@
 {
-  "name": "estetica",
-  "version": "1.0.0",
+  "name": "lumena-estetica",
+  "version": "2.0.0",
+  "description": "Plataforma de agendamento online para serviços de estética",
+  "main": "server-novo.js",
+  "type": "module",
   "scripts": {
+    "start": "node server-novo.js",
+    "server": "node server-novo.js",
     "dev": "npx live-server",
-    "start": "npx live-server"
+    "test": "bash test-api.sh"
+  },
+  "keywords": [
+    "estética",
+    "agendamento",
+    "salão",
+    "beleza"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "googleapis": "^118.0.0"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

@@ -23,6 +23,16 @@ export default function SchedulingModal({ isOpen, onClose }) {
       finalValue = value.replace(/[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g, '');
     }
 
+    // Filtro especial para WhatsApp: apenas números, parênteses, hífen e espaço
+    if (name === 'whatsapp') {
+      finalValue = value.replace(/[^0-9()\- ]/g, '');
+    }
+
+    // Limitar mensagem a 500 caracteres
+    if (name === 'mensagem') {
+      finalValue = value.slice(0, 500);
+    }
+
     setFormData(prev => ({
       ...prev,
       [name]: finalValue
@@ -94,14 +104,14 @@ export default function SchedulingModal({ isOpen, onClose }) {
 
     // Executar validação completa
     if (!validateForm()) {
-      setMessage('Por favor, corrija os erros no formulário');
+      setMessage('⚠️ Por favor, corrija os erros no formulário');
       setMessageType('error');
       return;
     }
 
     // Iniciar carregamento
     setIsLoading(true);
-    setMessage('Enviando seu agendamento...');
+    setMessage('⏳ Enviando seu agendamento...');
     setMessageType('loading');
 
     try {
@@ -113,18 +123,18 @@ export default function SchedulingModal({ isOpen, onClose }) {
         body: JSON.stringify(formData)
       });
 
+      // Verificar se resposta é válida
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.sucesso) {
-        setMessage('✅ Agendamento realizado com sucesso! Você será redirecionado...');
+        setMessage('✅ Agendamento realizado com sucesso! Redirecionando...');
         setMessageType('success');
         
-        // Abrir Google Calendar se houver URL
-        if (data.calendarUrl) {
-          setTimeout(() => {
-            window.open(data.calendarUrl, '_blank');
-          }, 1000);
-        }
+        console.log('✓ Agendamento criado com ID:', data.id);
 
         // Resetar formulário após 3 segundos
         setTimeout(() => {
@@ -137,16 +147,28 @@ export default function SchedulingModal({ isOpen, onClose }) {
             mensagem: ''
           });
           setIsLoading(false);
+          setMessage('');
           onClose();
         }, 3000);
       } else {
         setMessage('❌ ' + (data.mensagem || 'Erro ao agendar'));
         setMessageType('error');
         setIsLoading(false);
+        console.error('Erro no agendamento:', data);
       }
     } catch (error) {
-      console.error('Erro:', error);
-      setMessage('❌ Erro ao conectar com o servidor');
+      console.error('Erro ao enviar formulário:', error);
+      
+      let errorMsg = '❌ Erro ao conectar com o servidor';
+      if (error instanceof TypeError) {
+        errorMsg = '❌ Servidor indisponível. Tente novamente mais tarde.';
+      } else if (error.message.includes('404')) {
+        errorMsg = '❌ Endpoint não encontrado. Configure o servidor.';
+      } else if (error.message.includes('500')) {
+        errorMsg = '❌ Erro interno do servidor. Tente novamente.';
+      }
+      
+      setMessage(errorMsg);
       setMessageType('error');
       setIsLoading(false);
     }
