@@ -1,0 +1,7 @@
+.env
+credentials.json
+dist/
+build/
+.vscode/
+.DS_Store
+node_modules/
