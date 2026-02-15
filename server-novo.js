@@ -3,11 +3,21 @@ import path from 'path';
 import sqlite3 from 'sqlite3';
 import { google } from 'googleapis';
 import fs from 'fs';
+import nodemailer from 'nodemailer';
 import { fileURLToPath } from 'url';
 import db from './database/db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ===== EMAIL TRANSPORTER =====
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER || 'aparecidogomes1003@gmail.com',
+    pass: process.env.EMAIL_PASSWORD || 'sua-senha-app-google'
+  }
+});
 
 const app = express();
 
