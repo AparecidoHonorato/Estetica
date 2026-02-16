@@ -128,7 +128,10 @@ export default function SchedulingModal({ isOpen, onClose }) {
         mensagem: formData.mensagem
       };
 
-      const response = await fetch('/api/agendamentos', {
+      // Base da API: usar variável Vite `VITE_API_URL` quando definida.
+      const API_BASE = import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '');
+
+      const response = await fetch(`${API_BASE}/api/agendamentos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

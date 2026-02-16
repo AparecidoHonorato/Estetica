@@ -25,6 +25,16 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
+// ===== CORS (allow frontend dev servers/origins) =====
+app.use((req, res, next) => {
+  const allowed = process.env.ALLOWED_ORIGIN || '*';
+  res.setHeader('Access-Control-Allow-Origin', allowed);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization,x-admin-token');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
+
 // Rate limiting simples (proteção contra spam)
 const requestCounts = {};
 const RATE_LIMIT = 5; // máximo 5 requisições
