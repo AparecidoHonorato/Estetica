@@ -128,10 +128,16 @@ export default function SchedulingModal({ isOpen, onClose }) {
         mensagem: formData.mensagem
       };
 
-      // Base da API: usar variável Vite `VITE_API_URL` quando definida.
-      const API_BASE = import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '');
+      // Base da API: usar Vite `VITE_API_URL`, ou variável global `API_BASE`,
+      // ou fallback para localhost em dev; se vazio, usa rota relativa.
+      const envApi = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) ? import.meta.env.VITE_API_URL : null;
+      const globalApi = window.API_BASE || null;
+      const API_BASE = envApi || globalApi || (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '');
 
-      const response = await fetch(`${API_BASE}/api/agendamentos`, {
+      const url = API_BASE ? `${API_BASE.replace(/\/$/, '')}/api/agendamentos` : '/api/agendamentos';
+      console.debug('Enviando agendamento para', url, payloadData);
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -141,7 +147,9 @@ export default function SchedulingModal({ isOpen, onClose }) {
 
       // Verificar se resposta é válida
       if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
+        const text = await response.text().catch(() => '');
+        console.error('Resposta não OK:', response.status, text);
+        throw new Error(`Erro HTTP: ${response.status} ${text}`);
       }
 
       const data_response = await response.json();
@@ -174,16 +182,16 @@ export default function SchedulingModal({ isOpen, onClose }) {
       }
     } catch (error) {
       console.error('Erro ao enviar formulário:', error);
-      
-      let errorMsg = '❌ Erro ao conectar com o servidor';
+
+      let errorMsg = `❌ Erro ao conectar com o servidor: ${error?.message || ''}`;
       if (error instanceof TypeError) {
-        errorMsg = '❌ Servidor indisponível. Tente novamente mais tarde.';
-      } else if (error.message.includes('404')) {
+        errorMsg = `❌ Servidor indisponível. ${error.message}`;
+      } else if (error.message && error.message.includes('404')) {
         errorMsg = '❌ Endpoint não encontrado. Configure o servidor.';
-      } else if (error.message.includes('500')) {
+      } else if (error.message && error.message.includes('500')) {
         errorMsg = '❌ Erro interno do servidor. Tente novamente.';
       }
-      
+
       setMessage(errorMsg);
       setMessageType('error');
       setIsLoading(false);
