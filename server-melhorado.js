@@ -166,8 +166,11 @@ async function adicionarAoCalendarioAutomatico(nome, servico, data, hora, email)
       reminders: { useDefault: true }
     };
 
+    // Permitir configurar o calendário alvo via variável de ambiente
+    const calendarId = process.env.CALENDAR_ID || 'aparecidogomes1003@gmail.com';
+
     const result = await calendar.events.insert({
-      calendarId: 'primary',
+      calendarId: calendarId,
       resource: evento
     });
 
